@@ -68,6 +68,9 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     //SplashApi
-    implementation("androidx.core:core-splashscreen:1.0.1")
+    implementation(libs.androidx.core.splashscreen)
+//    implementation("androidx.core:core-splashscreen:1.0.1")
 
+    implementation ("androidx.datastore:datastore-preferences:1.1.1")
+//    implementation(libs.androidx.datastore.preferences)
 }
