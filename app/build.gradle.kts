@@ -1,6 +1,12 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    kotlin("kapt")
+    id("com.google.dagger.hilt.android")
+}
+
+kapt {
+    correctErrorTypes = true
 }
 
 android {
@@ -40,7 +46,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.2"
     }
     packaging {
         resources {
@@ -73,4 +79,9 @@ dependencies {
 
     implementation ("androidx.datastore:datastore-preferences:1.1.1")
 //    implementation(libs.androidx.datastore.preferences)
+
+
+    implementation("com.google.dagger:hilt-android:2.46")
+    kapt("com.google.dagger:hilt-android-compiler:2.46")
+    implementation ("androidx.hilt:hilt-navigation-compose:1.2.0")
 }
