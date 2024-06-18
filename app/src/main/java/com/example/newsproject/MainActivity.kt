@@ -1,5 +1,5 @@
 package com.example.newsproject
-
+import androidx.activity.viewModels
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -20,6 +20,7 @@ import androidx.core.view.WindowCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.lifecycleScope
 import com.example.newsproject.domain.usecases.AppEntryUseCases
+import com.example.newsproject.presentation.navgraph.NavGraph
 import com.example.newsproject.presentation.onboarding.OnBoardingScreen
 import com.example.newsproject.presentation.onboarding.OnBoardingViewModel
 import com.example.newsproject.ui.theme.NewsProjectTheme
@@ -28,26 +29,20 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    @Inject
-    lateinit var useCases: AppEntryUseCases
-
+    val viewModel by viewModels<MainViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window,false)
-        installSplashScreen()
-        enableEdgeToEdge()
-        lifecycleScope.launch {
-            useCases.readAppEntry().collect{
-                Log.d("test",it.toString())
-            }
+        installSplashScreen().apply {
+            setKeepOnScreenCondition(condition = { viewModel.splashCondition.value })
         }
+        enableEdgeToEdge()
+
         setContent {
             NewsProjectTheme {
                 Box(modifier = Modifier.background(color = MaterialTheme.colorScheme.background )) {
-                    val viewModel: OnBoardingViewModel = hiltViewModel()
-                    OnBoardingScreen(
-                        event = viewModel::onEvent
-                    )
+                   val startDestination = viewModel.startDestination
+                    NavGraph(startDestination = startDestination.value )
                 }
             }
         }
