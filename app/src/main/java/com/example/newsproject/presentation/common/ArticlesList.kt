@@ -18,6 +18,31 @@ import com.example.newsproject.presentation.Dimens.ExtraSmallPadding2
 import com.example.newsproject.presentation.Dimens.MediumPadding1
 import com.example.newsproject.presentation.common.ArticleCard
 
+
+@Composable
+fun ArticlesList(
+    modifier: Modifier = Modifier,
+    articles: List<Article>,
+    onClick: (Article) -> Unit
+) {
+    if (articles.isEmpty()){
+        EmptyScreen()
+    }
+    LazyColumn(
+        modifier = modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.spacedBy(MediumPadding1),
+        contentPadding = PaddingValues(all = ExtraSmallPadding2)
+    ) {
+        items(
+            count = articles.size,
+        ) {
+            val article = articles[it]
+                ArticleCard(article = article, onClick = { onClick(article) })
+            }
+        }
+    }
+
+
 @Composable
 fun ArticlesList(
     modifier: Modifier = Modifier,

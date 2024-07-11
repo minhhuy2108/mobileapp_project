@@ -13,6 +13,9 @@ import com.example.newsproject.domain.usecases.app_entry.SaveAppEntry
 import com.example.newsproject.domain.usecases.news.GetNews
 import com.example.newsproject.domain.usecases.news.NewsUseCases
 import com.example.newsproject.domain.usecases.news.SearchNews
+import com.example.newsproject.domain.usecases.news.GetArticles
+import com.example.newsproject.domain.usecases.news.DeleteArticle
+import com.example.newsproject.domain.usecases.news.UpsertArticle
 import com.example.newsproject.util.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -24,6 +27,7 @@ import javax.inject.Singleton
 import com.example.newsproject.data.local.NewsDatabase
 import com.example.newsproject.data.local.NewsDao
 import androidx.room.Room
+import com.example.newsproject.domain.usecases.news.GetArticle
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -55,17 +59,23 @@ object AppModule {
     @Provides
     @Singleton
     fun provideNewsRepository(
-        newsApi: NewsApi
-    ): NewsRepository = NewsRepositoryImpl(newsApi)
+        newsApi: NewsApi,
+        newsDao: NewsDao
+    ): NewsRepository = NewsRepositoryImpl(newsApi,newsDao)
 
     @Provides
     @Singleton
     fun provideNewsUseCases(
-        newsRepository: NewsRepository
+        newsRepository: NewsRepository,
+        newsDao: NewsDao
     ): NewsUseCases{
         return NewsUseCases(
             getNews = GetNews(newsRepository),
-            searchNews = SearchNews(newsRepository)
+            searchNews = SearchNews(newsRepository),
+            upsertArticle = UpsertArticle(newsRepository),
+            deleteArticle = DeleteArticle(newsRepository),
+            getArticles = GetArticles(newsRepository),
+            getArticle = GetArticle(newsRepository)
         )
     }
 
