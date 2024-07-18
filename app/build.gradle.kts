@@ -74,32 +74,22 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    //SplashApi
+
     implementation(libs.androidx.core.splashscreen)
-//    implementation("androidx.core:core-splashscreen:1.0.1")
+
+
+
 
     implementation ("androidx.datastore:datastore-preferences:1.1.1")
-//    implementation(libs.androidx.datastore.preferences)
-
-
     implementation("com.google.dagger:hilt-android:2.46")
     kapt("com.google.dagger:hilt-android-compiler:2.46")
     implementation ("androidx.hilt:hilt-navigation-compose:1.2.0")
-
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.31.4-beta")
-
-
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
-
-
-
     implementation ("androidx.paging:paging-runtime:3.1.1")
     implementation ("androidx.paging:paging-compose:3.2.0-rc01")
-
     implementation("io.coil-kt:coil-compose:2.4.0")
-
-
     implementation ("androidx.room:room-runtime:2.6.1")
     kapt ("androidx.room:room-compiler:2.6.1")
     implementation ("androidx.room:room-ktx:2.6.1")

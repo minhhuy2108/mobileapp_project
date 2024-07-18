@@ -40,23 +40,7 @@ fun DetailsScreen(
         .fillMaxSize()
         .statusBarsPadding()) {
         DetailsTopBar(
-            onBrowsingClick = {
-                Intent(Intent.ACTION_VIEW).also {
-                    it.data = Uri.parse(article.url)
-                    if (it.resolveActivity(context.packageManager) != null) {
-                        context.startActivity(it)
-                    }
-                }
-            },
-            onShareClick = {
-                Intent(Intent.ACTION_SEND).also {
-                    it.putExtra(Intent.EXTRA_TEXT, article.url)
-                    it.type = "text/plain"
-                    if (it.resolveActivity(context.packageManager) != null) {
-                        context.startActivity(it)
-                    }
-                }
-            },
+
             onBookMarkClick = { event(DetailsEvent.UpsertDeleteArticle(article)) },
             onBackClick = navigateUp
         )
@@ -88,12 +72,15 @@ fun DetailsScreen(
                     )
                 )
                 Text(
-                    text = "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn" +
-                            "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn" +
-                            "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn" +
-                            "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn" +
-                            "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn" +
-                            "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn",
+                    text = article.content,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = colorResource(
+                        id = R.color.body
+                    )
+                )
+                Spacer(modifier = Modifier.height(MediumPadding1))
+                Text(
+                    text = article.url,
                     style = MaterialTheme.typography.bodyMedium,
                     color = colorResource(
                         id = R.color.body

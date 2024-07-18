@@ -18,3 +18,4 @@ data class Article(
     @PrimaryKey val url: String,
     val urlToImage: String
 ): Parcelable
+
