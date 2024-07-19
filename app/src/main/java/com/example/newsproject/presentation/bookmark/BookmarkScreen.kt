@@ -20,8 +20,8 @@ import com.example.newsproject.presentation.navgraph.Route
 
 @Composable
 fun BookmarkScreen(
-    state: BookmarkState,
-    navigateToDetails: (Article) -> Unit
+    state: BookmarkState, // State holding the list of bookmarked articles
+    navigateToDetails: (Article) -> Unit // Function to navigate to article details
 ) {
     Column(
         modifier = Modifier
@@ -29,7 +29,7 @@ fun BookmarkScreen(
             .statusBarsPadding()
             .padding(top = MediumPadding1, start = MediumPadding1, end = MediumPadding1)
     ) {
-
+        // Display the title "Bookmark"
         Text(
             text = "Bookmark",
             style = MaterialTheme.typography.displayMedium.copy(fontWeight = FontWeight.Bold),
@@ -40,9 +40,10 @@ fun BookmarkScreen(
 
         Spacer(modifier = Modifier.height(MediumPadding1))
 
+        // Display the list of bookmarked articles
         ArticlesList(
             articles = state.articles,
-            onClick = { navigateToDetails(it) }
+            onClick = { navigateToDetails(it) } // Handle click event to navigate to details
         )
     }
 }

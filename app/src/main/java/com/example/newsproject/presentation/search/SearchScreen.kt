@@ -18,9 +18,9 @@ import com.example.newsproject.presentation.common.SearchBar
 
 @Composable
 fun SearchScreen(
-    state: SearchState,
-    event:(SearchEvent) -> Unit,
-    navigateToDetails: (Article) -> Unit
+    state: SearchState, // State holding the search query and article results
+    event:(SearchEvent) -> Unit, // Function to handle search events
+    navigateToDetails: (Article) -> Unit // Function to navigate to article details
 ) {
 
     Column(
@@ -28,21 +28,23 @@ fun SearchScreen(
             .padding(top = MediumPadding1, start = MediumPadding1, end = MediumPadding1)
             .statusBarsPadding()
     ) {
+        // Display the search bar
         SearchBar(
-            text = state.searchQuery,
-            readOnly = false,
+            text = state.searchQuery,// Bind the search query to the text field
+            readOnly = false, // Allow user to enter text
             onValueChange = { event(SearchEvent.UpdateSearchQuery(it)) },
             onSearch = {
-                event(SearchEvent.SearchNews)
+                event(SearchEvent.SearchNews)// Trigger search on search action
             }
         )
         Spacer(modifier = Modifier.height(MediumPadding1))
+        // Display the list of articles if available
         state.articles?.let {
-            val articles = it.collectAsLazyPagingItems()
+            val articles = it.collectAsLazyPagingItems() // Collect articles as lazy paging items
             ArticlesList(
-                articles = articles,
+                articles = articles, // Pass the articles to the list
                 onClick = {
-                    navigateToDetails(it)
+                    navigateToDetails(it) // Navigate to article details on click
                 }
             )
         }

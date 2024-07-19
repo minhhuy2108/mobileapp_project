@@ -39,7 +39,7 @@ fun HomeScreen(
     navigateToDetails: (Article) -> Unit
 
 ) {
-
+// Remember a list of titles for articles, limited to 10 items if available
     val titles by remember {
         derivedStateOf {
             if (articles.itemCount > 10) {
@@ -58,6 +58,7 @@ fun HomeScreen(
             .padding(top = MediumPadding1)
             .statusBarsPadding()
     ) {
+        // Display the logo image
         Image(
             painter = painterResource(id = R.drawable.ic_logo),
             contentDescription = null,
@@ -68,7 +69,7 @@ fun HomeScreen(
         )
 
         Spacer(modifier = Modifier.height(MediumPadding1))
-
+        // Display the search bar
         SearchBar(
             modifier = Modifier
                 .padding(horizontal = MediumPadding1)
@@ -77,25 +78,26 @@ fun HomeScreen(
             readOnly = true,
             onValueChange = {},
             onSearch = {},
-            onClick = { navigateToSearch()}
+            onClick = { navigateToSearch()} // Navigate to search on click
         )
 
         Spacer(modifier = Modifier.height(MediumPadding1))
-
+        // Display the scrolling titles of articles
         Text(
             text = titles, modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = MediumPadding1)
-                .basicMarquee(), fontSize = 12.sp,
+                .basicMarquee()// Make the text scroll horizontally
+            , fontSize = 12.sp,
             color = colorResource(id = R.color.placeholder)
         )
 
-        Spacer(modifier = Modifier.height(MediumPadding1))
-
+        Spacer(modifier = Modifier.height(MediumPadding1))// Add vertical spacing
+        // Display the list of articles
         ArticlesList(
             modifier = Modifier.padding(horizontal = MediumPadding1),
             articles = articles,
-            onClick = {navigateToDetails(it)}
+            onClick = {navigateToDetails(it)}// Navigate to article details on click
         )
     }
 }

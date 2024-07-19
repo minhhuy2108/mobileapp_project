@@ -31,18 +31,19 @@ import com.example.newsproject.ui.theme.NewsProjectTheme
 
 @Composable
 fun DetailsScreen(
-    article: Article,
-    event: (DetailsEvent) -> Unit,
-    navigateUp: () -> Unit
+    article: Article, // The article to display
+    event: (DetailsEvent) -> Unit,// Function to handle events
+    navigateUp: () -> Unit // Function to navigate back
 ) {
-    val context = LocalContext.current
+    val context = LocalContext.current // Get the current context
     Column(modifier = Modifier
         .fillMaxSize()
         .statusBarsPadding()) {
+        // Top bar with bookmark and back button
         DetailsTopBar(
 
-            onBookMarkClick = { event(DetailsEvent.UpsertDeleteArticle(article)) },
-            onBackClick = navigateUp
+            onBookMarkClick = { event(DetailsEvent.UpsertDeleteArticle(article)) },// Handle bookmark click
+            onBackClick = navigateUp // Handle back button click
         )
         LazyColumn(
             modifier = Modifier.fillMaxWidth(),
@@ -53,6 +54,7 @@ fun DetailsScreen(
             )
         ) {
             item {
+                // Display the article image
                 AsyncImage(
                     model = ImageRequest.Builder(context = context).data(article.urlToImage)
                         .build(),
@@ -60,10 +62,11 @@ fun DetailsScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(ArticleImageHeight)
-                        .clip(MaterialTheme.shapes.medium),
-                    contentScale = ContentScale.Crop
+                        .clip(MaterialTheme.shapes.medium), // Clip the image to a medium shape
+                    contentScale = ContentScale.Crop // Crop the image to fit the bounds
                 )
                 Spacer(modifier = Modifier.height(MediumPadding1))
+                // Display the article title
                 Text(
                     text = article.title,
                     style = MaterialTheme.typography.displaySmall,
@@ -71,6 +74,8 @@ fun DetailsScreen(
                         id = R.color.text_title
                     )
                 )
+                // Display the article content
+
                 Text(
                     text = article.content,
                     style = MaterialTheme.typography.bodyMedium,
@@ -79,6 +84,7 @@ fun DetailsScreen(
                     )
                 )
                 Spacer(modifier = Modifier.height(MediumPadding1))
+                // Display the article URL
                 Text(
                     text = article.url,
                     style = MaterialTheme.typography.bodyMedium,

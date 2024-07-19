@@ -1,4 +1,4 @@
-package com.example.newsproject.domain.manger
+package com.example.newsproject.domain.manager
 
 import kotlinx.coroutines.flow.Flow
 
@@ -8,3 +8,4 @@ interface LocalUserManger {
 
     fun readAppEntry(): Flow<Boolean>
 }
+

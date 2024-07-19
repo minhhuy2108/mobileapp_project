@@ -33,10 +33,11 @@ fun OnBoardingScreen(
     event: (OnBoardingEvent) -> Unit
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
-
+// Remember the state of the pager with the initial page set to 0
         val pagerState = rememberPagerState(initialPage = 0) {
             pages.size
         }
+        // Determine the state of the buttons based on the current page
         val buttonsState = remember {
             derivedStateOf {
                 when (pagerState.currentPage) {
@@ -47,10 +48,13 @@ fun OnBoardingScreen(
                 }
             }
         }
+        // Create a horizontal pager for onboarding pages
         HorizontalPager(state = pagerState) { index ->
             OnBoardingPage(page = pages[index])
         }
+        // Spacer to push the following Row to the bottom
         Spacer(modifier = Modifier.weight(1f))
+        // Row for PagerIndicator and Buttons
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -59,36 +63,40 @@ fun OnBoardingScreen(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
+            // Pager Indicator to show the current page indicator
             PagerIndicator(
                 modifier = Modifier.width(55.dp),
                 pagesSize = pages.size,
                 selectedPage = pagerState.currentPage
             )
+            // Row for Back and Next/Get Started buttons
             Row(verticalAlignment = Alignment.CenterVertically) {
                 val scope = rememberCoroutineScope()
                 //Hide the button when the first element of the list is empty
                 if (buttonsState.value[0].isNotEmpty()) {
+                    // Back button
                     NewsTextButton(
                         text = buttonsState.value[0],
                         onClick = {
                             scope.launch {
                                 pagerState.animateScrollToPage(
-                                    page = pagerState.currentPage - 1
+                                    page = pagerState.currentPage - 1 // Go to the previous page
                                 )
                             }
 
                         }
 
                     )
+                    // Next/Get Started button
                     NewsButton(
                         text = buttonsState.value[1],
                         onClick = {
                             scope.launch {
                                 if (pagerState.currentPage == 2) {
-                                    event(OnBoardingEvent.SaveAppEntry)
+                                    event(OnBoardingEvent.SaveAppEntry) // Trigger SaveAppEntry event
                                 } else {
                                     pagerState.animateScrollToPage(
-                                        page = pagerState.currentPage + 1
+                                        page = pagerState.currentPage + 1 // Go to the next page
                                     )
                                 }
                             }

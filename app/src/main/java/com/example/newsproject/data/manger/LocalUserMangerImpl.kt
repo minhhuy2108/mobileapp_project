@@ -6,7 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
-import com.example.newsproject.domain.manger.LocalUserManger
+import com.example.newsproject.domain.manager.LocalUserManger
 import com.example.newsproject.util.Constants.USER_SETTINGS
 import kotlinx.coroutines.flow.Flow
 import com.example.newsproject.util.Constants
